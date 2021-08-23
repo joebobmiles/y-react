@@ -24,6 +24,10 @@ jest.mock(
 
         on (): void {}
 
+        getLocalState (): { [x: string]: any } {
+          return this.states.get(this.clientID) ?? {}
+        }
+
         setLocalState (state: { [x: string]: any }): void {
           this.states.set(this.clientID, state)
         }
@@ -47,7 +51,7 @@ describe('useAwareness', () => {
     ).toHaveLength(1)
   })
 
-  it('Allows local state to be set', () => {
+  it('Allows local state to be set.', () => {
     const doc = new Y.Doc()
     const awareness = new Awareness(doc)
 
@@ -59,6 +63,26 @@ describe('useAwareness', () => {
       result.current.setLocalState({
         foo: 1
       })
+    })
+
+    expect(result.current.localState).toEqual({ foo: 1 })
+  })
+
+  it('Allows local state to be set via function.', () => {
+    const doc = new Y.Doc()
+    const awareness = new Awareness(doc)
+
+    const { result } = renderHook(
+      () => useAwareness(awareness)
+    )
+
+    act(() => {
+      result.current.setLocalState(
+        (prevState) => ({
+          ...prevState,
+          foo: 1
+        })
+      )
     })
 
     expect(result.current.localState).toEqual({ foo: 1 })
