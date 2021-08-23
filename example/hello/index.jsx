@@ -4,19 +4,19 @@ import { render } from 'react-dom'
 import { DocumentProvider, useMap } from '@joebobmiles/y-react'
 
 const App = () => {
-  const stateMap = useMap('state')
+  const { get, set } = useMap('state')
 
   useEffect(
     () => {
-      stateMap.set('count', 0)
+      set('count', 0)
     },
     []
   )
 
   return (
     <main>
-      <p>{stateMap.get('count')}</p>
-      <button>+</button>
+      <p>{get('count')}</p>
+      <button onClick={() => set('count', get('count') + 1)}>+</button>
     </main>
   )
 }
