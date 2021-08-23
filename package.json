@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "Joseph R Miles <joe@jrm.dev> (https://jrm.dev)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
