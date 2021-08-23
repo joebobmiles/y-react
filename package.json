@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Joseph R Miles <joe@jrm.dev> (https://jrm.dev)",
