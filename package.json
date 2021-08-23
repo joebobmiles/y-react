@@ -2,7 +2,9 @@
   "name": "@joebobmiles/y-react",
   "version": "0.0.0",
   "description": "React hooks for working with Yjs.",
-  "main": "./src/index.ts",
+  "main": "./dist/y-react.cjs",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/y-react.mjs",
   "scripts": {
     "test": "jest",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
