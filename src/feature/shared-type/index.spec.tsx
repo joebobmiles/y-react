@@ -1,60 +1,13 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 
 import React from 'react'
 import * as Y from 'yjs'
 
 import { DocumentProvider } from '../doc'
-import { useSharedType, useMap, useArray, useText } from '.'
-
-describe('useSharedType', () => {
-  it('Returns a Y.Map.', () => {
-    const { result } = renderHook(
-      () => useSharedType('test', Y.Map),
-      {
-        wrapper: ({ children }) => (
-          <DocumentProvider>
-            {children}
-          </DocumentProvider>
-        )
-      }
-    )
-
-    expect(result.current).toBeInstanceOf(Y.Map)
-  })
-
-  it('Returns a Y.Array.', () => {
-    const { result } = renderHook(
-      () => useSharedType('test', Y.Array),
-      {
-        wrapper: ({ children }) => (
-          <DocumentProvider>
-            {children}
-          </DocumentProvider>
-        )
-      }
-    )
-
-    expect(result.current).toBeInstanceOf(Y.Array)
-  })
-
-  it('Returns a Y.Text.', () => {
-    const { result } = renderHook(
-      () => useSharedType('test', Y.Text),
-      {
-        wrapper: ({ children }) => (
-          <DocumentProvider>
-            {children}
-          </DocumentProvider>
-        )
-      }
-    )
-
-    expect(result.current).toBeInstanceOf(Y.Text)
-  })
-})
+import { useMap, useArray, useText } from '.'
 
 describe('useMap', () => {
-  it('Returns a Y.Map.', () => {
+  it('Returns an object representing the current Y.Map state.', () => {
     const { result } = renderHook(
       () => useMap('test'),
       {
@@ -66,7 +19,47 @@ describe('useMap', () => {
       }
     )
 
-    expect(result.current).toBeInstanceOf(Y.Map)
+    expect(result.current.state).toEqual({})
+  })
+
+  it('Returns functions that can get and set Y.Map state.', () => {
+    const { result } = renderHook(
+      () => useMap('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    expect(result.current.get('foo')).toBeUndefined()
+
+    act(() => {
+      result.current.set('foo', 0)
+    })
+
+    expect(result.current.get('foo')).toBe(0)
+  })
+
+  it('Outputs correct state after using set.', () => {
+    const { result } = renderHook(
+      () => useMap('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    act(() => {
+      result.current.set('foo', 1)
+    })
+
+    expect(result.current.state).toEqual({ foo: 1 })
   })
 })
 
