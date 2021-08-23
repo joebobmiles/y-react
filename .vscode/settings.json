@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": false,
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false,
+  },
+  "standard.enable": true,
+  "standard.engine": "ts-standard",
+  "standard.autoFixOnSave": true,
+}
