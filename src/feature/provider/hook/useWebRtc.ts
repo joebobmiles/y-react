@@ -1,13 +1,13 @@
 import React from 'react'
-import * as Y from 'yjs'
 import { WebrtcProvider } from 'y-webrtc'
 
-export const useWebRtc = (doc: Y.Doc, room: string): WebrtcProvider =>
-  React.useMemo(
-    () =>
-      new WebrtcProvider(
-        room,
-        doc
-      ),
-    [doc, room]
+import { useDoc } from '../../doc'
+
+export const useWebRtc = (room: string): WebrtcProvider => {
+  const doc = useDoc()
+
+  return React.useMemo(
+    () => new WebrtcProvider(room, doc),
+    [room]
   )
+}

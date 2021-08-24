@@ -1,19 +1,23 @@
 import { renderHook } from '@testing-library/react-hooks'
 
-import * as Y from 'yjs'
+import React from 'react'
 import { WebrtcProvider } from 'y-webrtc'
 
 import { useWebRtc } from './useWebRtc'
+import { DocumentProvider } from '../../doc'
 
 describe('useWebRtc', () => {
   it('Returns a WebRTC provider', () => {
-    const doc = new Y.Doc()
-
     const { result } = renderHook(
-      () => useWebRtc(
-        doc,
-        'room'
-      )
+      () => useWebRtc('room'),
+      {
+        wrapper: ({ children }) =>
+          (
+            <DocumentProvider>
+              {children}
+            </DocumentProvider>
+          )
+      }
     )
 
     expect(result.current).toBeInstanceOf(WebrtcProvider)
