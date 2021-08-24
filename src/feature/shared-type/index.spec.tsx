@@ -275,6 +275,30 @@ describe('useArray', () => {
 
     expect(result.current.state).toEqual([2, 3, 1])
   })
+
+  it('Produces a slice from array with slice.', () => {
+    const { result } = renderHook(
+      () => useArray('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    act(() => {
+      result.current.insert(0, [1, 2, 3])
+    })
+
+    expect(result.current.state).toEqual([1, 2, 3])
+
+    expect(result.current.slice(1)).toEqual([2, 3])
+    expect(result.current.slice(0, 2)).toEqual([1, 2])
+    expect(result.current.slice(0, 3)).toEqual([1, 2, 3])
+    expect(result.current.slice(0)).toEqual([1, 2, 3])
+  })
 })
 
 describe('useText', () => {

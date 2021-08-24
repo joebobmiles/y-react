@@ -47,6 +47,7 @@ export const useArray = <T extends any = any>(name: string): {
   delete: (index: number, length: number) => void
   push: (content: T[]) => void
   unshift: (content: T[]) => void
+  slice: (start: number, end?: number) => void
 } => {
   const array = useSharedType<Y.Array<T>>(name, Y.Array)
 
@@ -82,6 +83,11 @@ export const useArray = <T extends any = any>(name: string): {
     unshift: React.useCallback(
       (content) =>
         array.unshift(content),
+      []
+    ),
+    slice: React.useCallback(
+      (start, end) =>
+        array.slice(start, end),
       []
     )
   }
