@@ -22,4 +22,21 @@ describe('useWebRtc', () => {
 
     expect(result.current).toBeInstanceOf(WebrtcProvider)
   })
+
+  it('Returns the same WebRTC provider under the same document.', () => {
+    expect(() => renderHook(
+      () => useWebRtc('room'),
+      {
+        wrapper: ({ children }) =>
+          (
+            <DocumentProvider>
+              {children}
+              {children}
+            </DocumentProvider>
+          )
+      }
+    )).not.toThrowError(
+      'Error: A Yjs Doc connected to room "room" already exists!'
+    )
+  })
 })
