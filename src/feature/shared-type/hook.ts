@@ -15,7 +15,7 @@ export const useMap = <T extends any = any>(name: string): {
   get: (name: string) => T | undefined
   set: (name: string, value: T) => void
 } => {
-  const [updateCounter, setUpdateCounter] = React.useState(0)
+  const [, setUpdateCounter] = React.useState(0)
   const forceUpdate = (): void => setUpdateCounter((prevState) => prevState + 1)
 
   const map = useSharedType<Y.Map<T>>(name, Y.Map)
@@ -24,7 +24,7 @@ export const useMap = <T extends any = any>(name: string): {
     state: map.toJSON(),
     get: React.useCallback(
       (name: string) => map.get(name),
-      [updateCounter]
+      []
     ),
     set: React.useCallback(
       (name, value) => {
