@@ -30,9 +30,10 @@ export default defineConfig({
   ],
   external: [
     'yjs',
-    'y-websocket',
-    'y-webrtc',
     'y-indexeddb',
+    'y-protocols',
+    'y-webrtc',
+    'y-websocket',
     'react'
   ]
 })
