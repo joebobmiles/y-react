@@ -56,4 +56,12 @@ describe('useDoc', () => {
     expect(result.current.getSubdocs().size).toBe(1)
     expect(Array.from(result.current.getSubdocs().values()).length).toBe(1)
   })
+
+  it('Throws an error when not inside a DocumentProvider.', () => {
+    const { result } = renderHook(() => useDoc())
+
+    expect(result.error).toEqual(new Error(
+      'Could not retrieve a document. Please wrap in a DocumentProvider.'
+    ))
+  })
 })
