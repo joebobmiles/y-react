@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react'
 import { render } from 'react-dom'
 
-import { DocumentProvider, useMap } from '@joebobmiles/y-react'
+import {
+  DocumentProvider,
+  useDoc,
+  useMap,
+  useWebRtc
+} from '@joebobmiles/y-react'
 
 const App = () => {
+  const doc = useDoc()
+
+  useWebRtc(doc, 'counter-example-y-react')
+
   const { get, set } = useMap('state')
 
   useEffect(
