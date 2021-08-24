@@ -1,5 +1,6 @@
 import React from 'react'
 import { Awareness } from 'y-protocols/awareness'
+import { useForceUpdate } from '../../util'
 
 export const useAwareness = <T extends {} = { [x: string]: any }>(
   awareness: Awareness
@@ -8,21 +9,22 @@ export const useAwareness = <T extends {} = { [x: string]: any }>(
   localState: T
   setLocalState: React.Dispatch<React.SetStateAction<T>>
 } => {
-  const [updateCounter, setUpdateCounter] = React.useState(0)
-
-  const forceUpdate = (): void =>
-    setUpdateCounter((prevState) => prevState + 1)
-
-  awareness.on('change', () => {
-    forceUpdate()
-  })
+  const forceUpdate = useForceUpdate()
+  React.useEffect(
+    () => {
+      awareness.on('change', () => {
+        forceUpdate()
+      })
+    },
+    []
+  )
 
   const [localState, setLocalState] = React.useState<T>({} as unknown as T)
 
   return ({
     states: React.useMemo(
       () => awareness.getStates() as Map<number, T>,
-      [updateCounter, awareness]
+      [awareness]
     ),
     localState,
     setLocalState: React.useCallback(
