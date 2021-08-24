@@ -33,17 +33,47 @@ export const useMap = <T extends any = any>(name: string): {
       []
     ),
     set: React.useCallback(
-      (name, value) => {
-        map.set(name, value)
-        forceUpdate()
-      },
+      (name, value) =>
+        map.set(name, value),
       []
     )
   }
 }
 
-export const useArray = <T extends any = any>(name: string): Y.Array<T> =>
-  useSharedType<Y.Array<T>>(name, Y.Array)
+export const useArray = <T extends any = any>(name: string): {
+  state: T[]
+  get: (index: number) => T | undefined
+  insert: (index: number, content: T[]) => void
+  delete: (index: number, length: number) => void
+} => {
+  const array = useSharedType<Y.Array<T>>(name, Y.Array)
+
+  const forceUpdate = useForceUpdate()
+  React.useEffect(
+    () => {
+      array.observe(() => forceUpdate())
+    },
+    []
+  )
+
+  return {
+    state: array.toJSON(),
+    get: React.useCallback(
+      (index) => array.get(index),
+      []
+    ),
+    insert: React.useCallback(
+      (index, content) =>
+        array.insert(index, content),
+      []
+    ),
+    delete: React.useCallback(
+      (index, length) =>
+        array.delete(index, length),
+      []
+    )
+  }
+}
 
 export const useText = (name: string): Y.Text =>
   useSharedType<Y.Text>(name, Y.Text)
