@@ -1,0 +1,19 @@
+{
+  "name": "awareness",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "y-webrtc": "^10.2.0",
+    "yjs": "^13.5.12",
+    "@joebobmiles/y-react": "^0.0.0"
+  }
+}
