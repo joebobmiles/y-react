@@ -225,6 +225,56 @@ describe('useArray', () => {
     expect(resultA.current.state).toEqual([1])
     expect(resultB.current.state).toEqual([1])
   })
+
+  it('Pushes content to the end of the array with push.', () => {
+    const { result } = renderHook(
+      () => useArray('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    act(() => {
+      result.current.insert(0, [1])
+    })
+
+    expect(result.current.state).toEqual([1])
+
+    act(() => {
+      result.current.push([2, 3])
+    })
+
+    expect(result.current.state).toEqual([1, 2, 3])
+  })
+
+  it('Pushes content to the beginning of the array with unshift.', () => {
+    const { result } = renderHook(
+      () => useArray('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    act(() => {
+      result.current.insert(0, [1])
+    })
+
+    expect(result.current.state).toEqual([1])
+
+    act(() => {
+      result.current.unshift([2, 3])
+    })
+
+    expect(result.current.state).toEqual([2, 3, 1])
+  })
 })
 
 describe('useText', () => {

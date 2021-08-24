@@ -45,6 +45,8 @@ export const useArray = <T extends any = any>(name: string): {
   get: (index: number) => T | undefined
   insert: (index: number, content: T[]) => void
   delete: (index: number, length: number) => void
+  push: (content: T[]) => void
+  unshift: (content: T[]) => void
 } => {
   const array = useSharedType<Y.Array<T>>(name, Y.Array)
 
@@ -70,6 +72,16 @@ export const useArray = <T extends any = any>(name: string): {
     delete: React.useCallback(
       (index, length) =>
         array.delete(index, length),
+      []
+    ),
+    push: React.useCallback(
+      (content) =>
+        array.push(content),
+      []
+    ),
+    unshift: React.useCallback(
+      (content) =>
+        array.unshift(content),
       []
     )
   }
