@@ -1,21 +1,36 @@
 import React from 'react'
 import { WebsocketProvider } from 'y-websocket'
 
-import { useDoc } from '../../doc'
+import { useDoc, useProviders } from '../../doc'
 
 export const useWebSocket = (
   url: string,
   room: string
 ): WebsocketProvider => {
   const doc = useDoc()
+  const providers = useProviders()
 
-  return React.useMemo(
+  const existingProvider = React.useMemo(
     () =>
-      new WebsocketProvider(
-        url,
-        room,
-        doc
-      ),
-    [url, room]
+      Array.from(providers.values())
+        .find((provider): provider is WebsocketProvider =>
+          provider instanceof WebsocketProvider &&
+          provider.url === url &&
+          provider.roomname === room
+        ),
+    [providers, url, room]
   )
+
+  if (existingProvider !== undefined) {
+    return existingProvider
+  } else {
+    const provider = React.useMemo(
+      () => new WebsocketProvider(url, room, doc),
+      [doc, url, room]
+    )
+
+    providers.add(provider)
+
+    return provider
+  }
 }
