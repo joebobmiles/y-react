@@ -1,18 +1,21 @@
 import React from 'react'
-import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 
+import { useDoc } from '../../doc'
+
 export const useWebSocket = (
-  doc: Y.Doc,
   url: string,
   room: string
-): WebsocketProvider =>
-  React.useMemo(
+): WebsocketProvider => {
+  const doc = useDoc()
+
+  return React.useMemo(
     () =>
       new WebsocketProvider(
         url,
         room,
         doc
       ),
-    [doc, url, room]
+    [url, room]
   )
+}

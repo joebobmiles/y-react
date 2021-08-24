@@ -1,16 +1,23 @@
 import { renderHook } from '@testing-library/react-hooks'
 
-import * as Y from 'yjs'
+import React from 'react'
 import { WebsocketProvider } from 'y-websocket'
 
 import { useWebSocket } from './useWebSocket'
+import { DocumentProvider } from '../../doc'
 
 describe('useWebSocket', () => {
   it('Returns a WebSocket provider', () => {
-    const doc = new Y.Doc()
-
     const { result } = renderHook(
-      () => useWebSocket(doc, 'ws://localhost:1234', 'room')
+      () => useWebSocket('ws://localhost:1234', 'room'),
+      {
+        wrapper: ({ children }) =>
+          (
+            <DocumentProvider>
+              {children}
+            </DocumentProvider>
+          )
+      }
     )
 
     expect(result.current).toBeInstanceOf(WebsocketProvider)
