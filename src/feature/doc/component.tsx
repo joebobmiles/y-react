@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Y from 'yjs'
 
+import { Provider } from './type'
 import { useDoc } from './hook'
 
-export const DocumentContext = React.createContext<Y.Doc | null>(null)
+export const DocumentContext = React.createContext<{
+  doc: Y.Doc | null
+  providers: Set<Provider> | null
+}>({
+  doc: null,
+  providers: null
+})
 
 interface DocumentProviderProps {
   children: React.ReactNode
@@ -25,8 +32,22 @@ export const DocumentProvider = ({
     superDoc.getMap(folderName ?? '').set(documentName ?? doc.guid, doc)
   }
 
+  const providers = React.useRef(new Set<Provider>())
+
+  useEffect(
+    () =>
+      () => providers.current.forEach(
+        (provider) => provider.destroy()),
+    []
+  )
+
   return (
-    <DocumentContext.Provider value={doc}>
+    <DocumentContext.Provider
+      value={{
+        doc,
+        providers: providers.current
+      }}
+    >
       {children}
     </DocumentContext.Provider>
   )

@@ -1,2 +1,2 @@
 export { DocumentProvider } from './component'
-export { useDoc } from './hook'
+export { useDoc, useProviders } from './hook'
