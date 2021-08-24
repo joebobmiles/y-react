@@ -5,7 +5,7 @@ import { useDoc, useProviders } from '../../doc'
 
 export const useWebRtc = (room: string): WebrtcProvider => {
   const doc = useDoc()
-  const { providers } = useProviders()
+  const providers = useProviders()
 
   const existingProvider = React.useMemo(
     () =>

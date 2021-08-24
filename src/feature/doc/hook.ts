@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Y from 'yjs'
-import { useForceUpdate } from '../../util'
 
 import { DocumentContext } from './component'
 import { Provider } from './type'
@@ -17,21 +16,11 @@ export const useDoc = (): Y.Doc => {
   }
 }
 
-export const useProviders = (): {
-  providers: Set<Provider>
-  addProvider: (provider: Provider) => void
-} => {
+export const useProviders = (): Set<Provider> => {
   const { providers } = React.useContext(DocumentContext)
-  const forceUpdate = useForceUpdate()
 
   if (providers !== null) {
-    return {
-      providers,
-      addProvider: (provider) => {
-        providers.add(provider)
-        forceUpdate()
-      }
-    }
+    return providers
   } else {
     throw new Error(
       'Could not retrieve a set of providers. Please wrap in a DocumentProvider.'
