@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks'
 
-import * as Y from 'yjs'
+import React from 'react'
 import { IndexeddbPersistence } from 'y-indexeddb'
 
 import { useIndexedDb } from './useIndexedDb'
+import { DocumentProvider } from '../../doc'
 
 jest.mock('y-indexeddb', () => ({
   IndexeddbPersistence: class {
@@ -13,10 +14,16 @@ jest.mock('y-indexeddb', () => ({
 
 describe('useIndexedDb', () => {
   it('Returns an IndexedDB provider', async () => {
-    const doc = new Y.Doc()
-
     const { result } = renderHook(
-      () => useIndexedDb(doc, 'test')
+      () => useIndexedDb('test'),
+      {
+        wrapper: ({ children }) =>
+          (
+            <DocumentProvider>
+              {children}
+            </DocumentProvider>
+          )
+      }
     )
 
     await result.current.whenSynced

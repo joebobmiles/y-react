@@ -1,10 +1,13 @@
 import React from 'react'
-import * as Y from 'yjs'
 import { IndexeddbPersistence } from 'y-indexeddb'
+import { useDoc } from '../../doc'
 
-export const useIndexedDb = (doc: Y.Doc, name: string): IndexeddbPersistence =>
-  React.useMemo(
+export const useIndexedDb = (name: string): IndexeddbPersistence => {
+  const doc = useDoc()
+
+  return React.useMemo(
     () =>
       new IndexeddbPersistence(name, doc),
-    [doc, name]
+    [name]
   )
+}
