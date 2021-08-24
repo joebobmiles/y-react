@@ -11,9 +11,30 @@
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "prepare": "husky install"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "hooks",
+    "yjs",
+    "state-management",
+    "peer-to-peer",
+    "p2p",
+    "distributed",
+    "local-first",
+    "offline-first",
+    "crdt",
+    "decentralized",
+    "shared-editing",
+    "realtime"
+  ],
   "author": "Joseph R Miles <joe@jrm.dev> (https://jrm.dev)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joebobmiles/y-react"
+  },
+  "bugs": {
+    "url": "https://github.com/joebobmiles/y-react/issues"
+  },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
@@ -47,6 +68,13 @@
   "exports": {
     "require": "./dist/y-react.cjs",
     "import": "./dist/y-react.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "commitlint": {
     "extends": [
