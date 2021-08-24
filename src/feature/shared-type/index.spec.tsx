@@ -99,8 +99,6 @@ describe('useMap', () => {
       resultA.current.set('foo', 1)
     })
 
-    console.log(doc2.getMap('test').toJSON())
-
     expect(resultA.current.state).toEqual({ foo: 1 })
     expect(resultB.current.state).toEqual({ foo: 1 })
   })

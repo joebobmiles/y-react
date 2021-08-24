@@ -8,10 +8,6 @@ const useSharedType = <T extends Y.AbstractType<any>>(
   constructor: Function | undefined
 ): T => {
   const doc = useDoc()
-
-  const forceUpdate = useForceUpdate()
-  doc.on('update', () => forceUpdate())
-
   return doc.get(name, constructor) as T
 }
 
@@ -20,9 +16,15 @@ export const useMap = <T extends any = any>(name: string): {
   get: (name: string) => T | undefined
   set: (name: string, value: T) => void
 } => {
-  const forceUpdate = useForceUpdate()
-
   const map = useSharedType<Y.Map<T>>(name, Y.Map)
+
+  const forceUpdate = useForceUpdate()
+  React.useEffect(
+    () => {
+      map.observe(() => forceUpdate())
+    },
+    []
+  )
 
   return {
     state: map.toJSON(),
