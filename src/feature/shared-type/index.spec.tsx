@@ -61,6 +61,49 @@ describe('useMap', () => {
 
     expect(result.current.state).toEqual({ foo: 1 })
   })
+
+  it('Synchronizes state between peers.', () => {
+    const doc1 = new Y.Doc()
+    const doc2 = new Y.Doc()
+
+    doc1.on('update', (update: any) => {
+      Y.applyUpdate(doc2, update)
+    })
+    doc2.on('update', (update: any) => {
+      Y.applyUpdate(doc1, update)
+    })
+
+    const { result: resultA } = renderHook(
+      () => useMap('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider doc={doc1}>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    const { result: resultB } = renderHook(
+      () => useMap('test'),
+      {
+        wrapper: ({ children }) => (
+          <DocumentProvider doc={doc1}>
+            {children}
+          </DocumentProvider>
+        )
+      }
+    )
+
+    act(() => {
+      resultA.current.set('foo', 1)
+    })
+
+    console.log(doc2.getMap('test').toJSON())
+
+    expect(resultA.current.state).toEqual({ foo: 1 })
+    expect(resultB.current.state).toEqual({ foo: 1 })
+  })
 })
 
 describe('useArray', () => {
