@@ -6,6 +6,7 @@ export const useAwareness = <T extends {} = { [x: string]: any }>(
   awareness: Awareness
 ): {
   states: Map<number, T>
+  localID: number
   localState: T
   setLocalState: React.Dispatch<React.SetStateAction<T>>
 } => {
@@ -26,6 +27,7 @@ export const useAwareness = <T extends {} = { [x: string]: any }>(
       () => awareness.getStates() as Map<number, T>,
       [awareness]
     ),
+    localID: awareness.clientID,
     localState,
     setLocalState: React.useCallback(
       (nextState) => {
