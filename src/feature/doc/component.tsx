@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import * as Y from 'yjs'
 
 import { Provider } from './type'
@@ -33,13 +33,6 @@ export const DocumentProvider = ({
   }
 
   const providers = React.useRef(new Set<Provider>())
-
-  useEffect(
-    () =>
-      () => providers.current.forEach(
-        (provider) => provider.destroy()),
-    []
-  )
 
   return (
     <DocumentContext.Provider

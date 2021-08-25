@@ -29,6 +29,15 @@ export const useWebSocket = (
       [doc, url, room]
     )
 
+    React.useEffect(
+      () =>
+        () => {
+          providers.delete(provider)
+          provider.destroy()
+        },
+      []
+    )
+
     providers.add(provider)
 
     return provider

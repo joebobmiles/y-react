@@ -24,6 +24,15 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
       [doc, name]
     )
 
+    React.useEffect(
+      () =>
+        () => {
+          providers.delete(provider)
+          provider.destroy()
+        },
+      []
+    )
+
     providers.add(provider)
 
     return provider

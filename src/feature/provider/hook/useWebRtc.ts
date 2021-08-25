@@ -24,6 +24,15 @@ export const useWebRtc = (room: string): WebrtcProvider => {
       [doc, room]
     )
 
+    React.useEffect(
+      () =>
+        () => {
+          providers.delete(provider)
+          provider.destroy()
+        },
+      []
+    )
+
     providers.add(provider)
 
     return provider
