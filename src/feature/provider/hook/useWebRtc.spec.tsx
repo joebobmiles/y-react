@@ -39,4 +39,24 @@ describe('useWebRtc', () => {
       'Error: A Yjs Doc connected to room "room" already exists!'
     )
   })
+
+  it('Does not error on rerender.', () => {
+    expect(() => {
+      const { rerender } = renderHook(
+        () => useWebRtc('room'),
+        {
+          wrapper: ({ children }) =>
+            (
+              <DocumentProvider>
+                {children}
+              </DocumentProvider>
+            )
+        }
+      )
+
+      rerender()
+    }).not.toThrowError(
+      'Error: A Yjs Doc connected to room "room" already exists!'
+    )
+  })
 })

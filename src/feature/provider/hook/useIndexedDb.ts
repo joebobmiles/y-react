@@ -7,14 +7,8 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
   const doc = useDoc()
   const providers = useProviders()
 
-  const existingProvider = React.useMemo(
-    () =>
-      Array.from(providers.values())
-        .find((provider): provider is IndexeddbPersistence =>
-          provider instanceof IndexeddbPersistence && provider.db?.name === name
-        ),
-    [providers, name]
-  )
+  const existingProvider =
+    providers.get(IndexeddbPersistence)?.get(name) as IndexeddbPersistence | undefined
 
   if (existingProvider !== undefined) {
     return existingProvider
@@ -24,16 +18,11 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
       [doc, name]
     )
 
-    React.useEffect(
-      () =>
-        () => {
-          providers.delete(provider)
-          provider.destroy()
-        },
-      []
-    )
+    if (!providers.has(IndexeddbPersistence)) {
+      providers.set(IndexeddbPersistence, new Map())
+    }
 
-    providers.add(provider)
+    providers.get(IndexeddbPersistence)?.set(name, provider)
 
     return provider
   }

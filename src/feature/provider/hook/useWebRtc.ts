@@ -7,14 +7,8 @@ export const useWebRtc = (room: string): WebrtcProvider => {
   const doc = useDoc()
   const providers = useProviders()
 
-  const existingProvider = React.useMemo(
-    () =>
-      Array.from(providers.values())
-        .find((provider): provider is WebrtcProvider =>
-          provider instanceof WebrtcProvider && provider.roomName === room
-        ),
-    [providers, room]
-  )
+  const existingProvider =
+    providers.get(WebrtcProvider)?.get(room) as WebrtcProvider | undefined
 
   if (existingProvider !== undefined) {
     return existingProvider
@@ -24,16 +18,11 @@ export const useWebRtc = (room: string): WebrtcProvider => {
       [doc, room]
     )
 
-    React.useEffect(
-      () =>
-        () => {
-          providers.delete(provider)
-          provider.destroy()
-        },
-      []
-    )
+    if (!providers.has(WebrtcProvider)) {
+      providers.set(WebrtcProvider, new Map())
+    }
 
-    providers.add(provider)
+    providers.get(WebrtcProvider)?.set(room, provider)
 
     return provider
   }

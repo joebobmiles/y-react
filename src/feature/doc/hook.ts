@@ -16,7 +16,7 @@ export const useDoc = (): Y.Doc => {
   }
 }
 
-export const useProviders = (): Set<Provider> => {
+export const useProviders = (): Map<new (...args: any) => Provider, Map<string, Provider>> => {
   const { providers } = React.useContext(DocumentContext)
 
   if (providers !== null) {

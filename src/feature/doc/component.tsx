@@ -6,11 +6,11 @@ import { useDoc } from './hook'
 
 export const DocumentContext = React.createContext<{
   doc: Y.Doc | null
-  providers: Set<Provider> | null
+  providers: Map<new (...args: any[]) => Provider, Map<string, Provider>> | null
 }>({
-  doc: null,
-  providers: null
-})
+      doc: null,
+      providers: null
+    })
 
 interface DocumentProviderProps {
   children: React.ReactNode
@@ -32,7 +32,17 @@ export const DocumentProvider = ({
     superDoc.getMap(folderName ?? '').set(documentName ?? doc.guid, doc)
   }
 
-  const providers = React.useRef(new Set<Provider>())
+  const providers = React.useRef<Map<new (...args: any[]) => Provider, Map<string, Provider>>>(new Map())
+
+  React.useEffect(
+    () =>
+      () => {
+        providers.current.forEach((map) => {
+          map.forEach((provider) => provider.destroy())
+        })
+      },
+    []
+  )
 
   return (
     <DocumentContext.Provider

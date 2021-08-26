@@ -10,35 +10,22 @@ export const useWebSocket = (
   const doc = useDoc()
   const providers = useProviders()
 
-  const existingProvider = React.useMemo(
-    () =>
-      Array.from(providers.values())
-        .find((provider): provider is WebsocketProvider =>
-          provider instanceof WebsocketProvider &&
-          provider.url === url &&
-          provider.roomname === room
-        ),
-    [providers, url, room]
-  )
+  const existingProvider =
+    providers.get(WebsocketProvider)?.get(room) as WebsocketProvider | undefined
 
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
     const provider = React.useMemo(
       () => new WebsocketProvider(url, room, doc),
-      [doc, url, room]
+      [doc, room]
     )
 
-    React.useEffect(
-      () =>
-        () => {
-          providers.delete(provider)
-          provider.destroy()
-        },
-      []
-    )
+    if (!providers.has(WebsocketProvider)) {
+      providers.set(WebsocketProvider, new Map())
+    }
 
-    providers.add(provider)
+    providers.get(WebsocketProvider)?.set(room, provider)
 
     return provider
   }
