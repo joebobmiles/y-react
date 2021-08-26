@@ -10,14 +10,14 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
   const existingProvider =
     providers.get(IndexeddbPersistence)?.get(name) as IndexeddbPersistence | undefined
 
+  const provider = React.useMemo(
+    () => new IndexeddbPersistence(name, doc),
+    [doc, name]
+  )
+
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    const provider = React.useMemo(
-      () => new IndexeddbPersistence(name, doc),
-      [doc, name]
-    )
-
     if (!providers.has(IndexeddbPersistence)) {
       providers.set(IndexeddbPersistence, new Map())
     }

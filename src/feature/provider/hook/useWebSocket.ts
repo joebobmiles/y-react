@@ -13,14 +13,14 @@ export const useWebSocket = (
   const existingProvider =
     providers.get(WebsocketProvider)?.get(room) as WebsocketProvider | undefined
 
+  const provider = React.useMemo(
+    () => new WebsocketProvider(url, room, doc),
+    [doc, room]
+  )
+
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    const provider = React.useMemo(
-      () => new WebsocketProvider(url, room, doc),
-      [doc, room]
-    )
-
     if (!providers.has(WebsocketProvider)) {
       providers.set(WebsocketProvider, new Map())
     }
