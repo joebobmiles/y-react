@@ -1,6 +1,6 @@
 {
   "name": "@joebobmiles/y-react",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React hooks for working with Yjs.",
   "main": "./dist/y-react.cjs",
   "types": "./dist/index.d.ts",
