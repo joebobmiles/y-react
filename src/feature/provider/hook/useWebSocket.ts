@@ -21,7 +21,7 @@ export const useWebSocket = (
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    if (!(providers.has(WebsocketProvider))) {
+    if (!(providers.has(WebsocketProvider) as boolean)) {
       providers.set(WebsocketProvider, new Map())
     }
 
