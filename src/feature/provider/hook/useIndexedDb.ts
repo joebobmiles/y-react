@@ -18,7 +18,7 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    if (!(providers.has(IndexeddbPersistence) as boolean)) {
+    if (!(providers.has(IndexeddbPersistence))) {
       providers.set(IndexeddbPersistence, new Map())
     }
 

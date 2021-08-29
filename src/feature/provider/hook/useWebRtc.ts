@@ -17,7 +17,7 @@ export const useWebRtc = (room: string): WebrtcProvider => {
       } else {
         const provider = new WebrtcProvider(room, doc)
 
-        if (!(providers.has(WebrtcProvider) as boolean)) {
+        if (!(providers.has(WebrtcProvider))) {
           providers.set(WebrtcProvider, new Map())
         }
 
