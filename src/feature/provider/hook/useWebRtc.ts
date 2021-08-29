@@ -13,12 +13,11 @@ export const useWebRtc = (room: string): WebrtcProvider => {
   return React.useMemo(
     () => {
       if (existingProvider !== undefined) {
-        console.log(providers, existingProvider)
         return existingProvider
       } else {
         const provider = new WebrtcProvider(room, doc)
 
-        if (!(providers.has(WebrtcProvider))) {
+        if (!(providers.has(WebrtcProvider) as boolean)) {
           providers.set(WebrtcProvider, new Map())
         }
 
