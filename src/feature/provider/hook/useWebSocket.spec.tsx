@@ -4,7 +4,7 @@ import React from 'react'
 import { WebsocketProvider } from 'y-websocket'
 
 import { useWebSocket } from './useWebSocket'
-import { DocumentProvider } from '../../doc'
+import { DocumentProvider } from '@/feature/doc'
 
 describe('useWebSocket', () => {
   it('Returns a WebSocket provider', () => {

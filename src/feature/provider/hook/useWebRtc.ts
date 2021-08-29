@@ -1,7 +1,7 @@
 import React from 'react'
 import { WebrtcProvider } from 'y-webrtc'
 
-import { useDoc, useProviders } from '../../doc'
+import { useDoc, useProviders } from '@/feature/doc'
 
 export const useWebRtc = (room: string): WebrtcProvider => {
   const doc = useDoc()
@@ -18,7 +18,7 @@ export const useWebRtc = (room: string): WebrtcProvider => {
       } else {
         const provider = new WebrtcProvider(room, doc)
 
-        if (!providers.has(WebrtcProvider)) {
+        if (!(providers.has(WebrtcProvider))) {
           providers.set(WebrtcProvider, new Map())
         }
 

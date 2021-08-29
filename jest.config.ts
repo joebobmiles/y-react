@@ -5,6 +5,9 @@ const config: Config.InitialOptions = {
   transform: {
     '.tsx?$': 'ts-jest'
   },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>$1'
+  },
   testEnvironment: 'jsdom'
 }
 

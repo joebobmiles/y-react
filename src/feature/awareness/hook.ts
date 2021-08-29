@@ -1,6 +1,6 @@
 import React from 'react'
 import { Awareness } from 'y-protocols/awareness'
-import { useForceUpdate } from '../../util'
+import { useForceUpdate } from '@/util'
 
 export const useAwareness = <T extends {} = { [x: string]: any }>(
   awareness: Awareness

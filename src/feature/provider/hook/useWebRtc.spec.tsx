@@ -4,7 +4,7 @@ import React from 'react'
 import { WebrtcProvider } from 'y-webrtc'
 
 import { useWebRtc } from './useWebRtc'
-import { DocumentProvider } from '../../doc'
+import { DocumentProvider } from '@/feature/doc'
 
 describe('useWebRtc', () => {
   it('Returns a WebRTC provider', () => {

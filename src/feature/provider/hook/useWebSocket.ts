@@ -1,7 +1,7 @@
 import React from 'react'
 import { WebsocketProvider } from 'y-websocket'
 
-import { useDoc, useProviders } from '../../doc'
+import { useDoc, useProviders } from '@/feature/doc'
 
 export const useWebSocket = (
   url: string,
@@ -21,7 +21,7 @@ export const useWebSocket = (
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    if (!providers.has(WebsocketProvider)) {
+    if (!(providers.has(WebsocketProvider))) {
       providers.set(WebsocketProvider, new Map())
     }
 
