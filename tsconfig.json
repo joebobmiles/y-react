@@ -16,6 +16,11 @@
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     /* Advanced Options */
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
@@ -23,5 +28,5 @@
   "exclude": [
     "**/*.config.ts",
     "dist/**/*"
-  ]
+  ],
 }

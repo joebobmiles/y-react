@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Y from 'yjs'
-import { useForceUpdate } from '../../util'
-import { useDoc } from '../doc'
+import { useForceUpdate } from '@/util'
+import { useDoc } from '@/feature/doc'
 
 const useSharedType = <T extends Y.AbstractType<any>>(
   name: string,

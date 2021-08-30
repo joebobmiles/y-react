@@ -1,7 +1,7 @@
 import React from 'react'
 import { IndexeddbPersistence } from 'y-indexeddb'
 
-import { useDoc, useProviders } from '../../doc'
+import { useDoc, useProviders } from '@/feature/doc'
 
 export const useIndexedDb = (name: string): IndexeddbPersistence => {
   const doc = useDoc()
@@ -18,7 +18,7 @@ export const useIndexedDb = (name: string): IndexeddbPersistence => {
   if (existingProvider !== undefined) {
     return existingProvider
   } else {
-    if (!providers.has(IndexeddbPersistence)) {
+    if (!(providers.has(IndexeddbPersistence))) {
       providers.set(IndexeddbPersistence, new Map())
     }
 

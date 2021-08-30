@@ -4,7 +4,7 @@ import React from 'react'
 import { IndexeddbPersistence } from 'y-indexeddb'
 
 import { useIndexedDb } from './useIndexedDb'
-import { DocumentProvider } from '../../doc'
+import { DocumentProvider } from '@/feature/doc'
 
 jest.mock('y-indexeddb', () => ({
   IndexeddbPersistence: class {
