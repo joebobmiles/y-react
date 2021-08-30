@@ -13,9 +13,11 @@ export const useAwareness = <T extends {} = { [x: string]: any }>(
   const forceUpdate = useForceUpdate()
   React.useEffect(
     () => {
-      awareness.on('change', () => {
-        forceUpdate()
-      })
+      const forceUpdateOnAwarenessChange = (): void => forceUpdate()
+
+      awareness.on('change', forceUpdateOnAwarenessChange)
+
+      return () => awareness.off('change', forceUpdateOnAwarenessChange)
     },
     []
   )
