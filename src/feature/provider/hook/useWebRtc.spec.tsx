@@ -1,6 +1,13 @@
+/* eslint-env jest */
 import { renderHook } from '@testing-library/react-hooks'
 
 import React from 'react'
+import * as Y from 'yjs'
+
+jest.mock('y-webrtc', () => ({
+  WebrtcProvider: jest.fn()
+}))
+/* eslint-disable import/first */
 import { WebrtcProvider } from 'y-webrtc'
 
 import { useWebRtc } from './useWebRtc'
@@ -58,5 +65,29 @@ describe('useWebRtc', () => {
     }).not.toThrowError(
       'Error: A Yjs Doc connected to room "room" already exists!'
     )
+  })
+
+  it('Passes password option to WebrtcProvider.', () => {
+    jest.resetAllMocks()
+
+    const doc = new Y.Doc()
+
+    renderHook(
+      () => useWebRtc('room', {
+        password: 'password'
+      }),
+      {
+        wrapper: ({ children }) =>
+          (
+            <DocumentProvider doc={doc}>
+              {children}
+            </DocumentProvider>
+          )
+      }
+    )
+
+    expect(WebrtcProvider).toBeCalledWith('room', doc, {
+      password: 'password'
+    })
   })
 })
