@@ -23,6 +23,7 @@ jest.mock(
         }
 
         on (): void {}
+        off (): void {}
 
         getLocalState (): { [x: string]: any } {
           return this.states.get(this.clientID) ?? {}
