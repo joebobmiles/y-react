@@ -1,16 +1,11 @@
 import { renderHook } from '@testing-library/react'
 
 import React from 'react'
+import 'fake-indexeddb/auto'
 import { IndexeddbPersistence } from 'y-indexeddb'
 
 import { useIndexedDb } from './useIndexedDb'
 import { DocumentProvider } from '@/feature/doc'
-
-jest.mock('y-indexeddb', () => ({
-  IndexeddbPersistence: class {
-    whenSynced = new Promise<void>((resolve) => resolve())
-  }
-}))
 
 describe('useIndexedDb', () => {
   it('Returns an IndexedDB provider', async () => {
@@ -26,7 +21,7 @@ describe('useIndexedDb', () => {
       }
     )
 
-    await result.current.whenSynced
+    // await result.current.whenSynced
 
     expect(result.current).toBeInstanceOf(IndexeddbPersistence)
   })
