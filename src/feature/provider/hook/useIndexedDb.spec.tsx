@@ -21,8 +21,6 @@ describe('useIndexedDb', () => {
       }
     )
 
-    // await result.current.whenSynced
-
     expect(result.current).toBeInstanceOf(IndexeddbPersistence)
   })
 })
