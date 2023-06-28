@@ -5,11 +5,11 @@ import { useForceUpdate } from '@/util'
 export const useAwareness = <T extends {} = { [x: string]: any }>(
   awareness: Awareness
 ): {
-  states: Map<number, T>
-  localID: number
-  localState: T
-  setLocalState: React.Dispatch<React.SetStateAction<T>>
-} => {
+    states: Map<number, T>
+    localID: number
+    localState: T
+    setLocalState: React.Dispatch<React.SetStateAction<T>>
+  } => {
   const forceUpdate = useForceUpdate()
   React.useEffect(
     () => {

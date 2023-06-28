@@ -6,7 +6,7 @@ import React, { useCallback } from 'react'
  *
  * @returns A callback that forces a React update.
  */
-export const useForceUpdate = () => {
+export const useForceUpdate = (): () => void => {
   // eslint-disable-next-line space-infix-ops
   const [, dispatch] = React.useState<{}>(Object.create(null))
 
