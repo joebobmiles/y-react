@@ -38,7 +38,8 @@ export const DocumentProvider = ({
     () =>
       () => {
         providers.current.forEach((map) => {
-          map.forEach((provider) => provider.destroy())
+          // eslint-disable-next-line no-void
+          map.forEach((provider) => (void provider.destroy()))
         })
       },
     []
