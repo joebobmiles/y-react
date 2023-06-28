@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react'
 
 import * as Y from 'yjs'
 import { Awareness } from 'y-protocols/awareness'
