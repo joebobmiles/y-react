@@ -31,7 +31,7 @@ export const useWebRtc = (
           doc,
           options as {
             signaling: string[]
-            password: string | null
+            password?: string
             awareness: Awareness
             maxConns: number
             filterBcConns: boolean
